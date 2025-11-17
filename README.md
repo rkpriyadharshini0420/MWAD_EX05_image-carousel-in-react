@@ -1,5 +1,5 @@
 # MWAD_EX05_image-carousel-in-react
-## Date:
+## Date:17-11-2025
 
 ## AIM
 To create a Image Carousel using React 
@@ -39,9 +39,65 @@ Use setInterval to call the nextImage() function at regular intervals.
 Clean up the interval when the component unmounts using clearInterval to prevent memory leaks.
 
 ## PROGRAM
+App.jsx
+```
+import React, { useState, useEffect } from "react";
 
+const ImageCarousel = () => {
+  const images = [
+    "https://picsum.photos/id/1015/800/450",
+    "https://picsum.photos/id/1025/800/450",
+    "https://picsum.photos/id/1035/800/450",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Next image
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  // Previous image
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  // Auto-rotation
+  useEffect(() => {
+    const interval = setInterval(nextImage, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{ textAlign: "center", width: "100%" }}>
+      <h2>Image Carousel</h2>
+
+      <img
+        src={images[currentIndex]}
+        alt="carousel"
+        style={{
+          width: "800px",
+          height: "450px",
+          borderRadius: "10px",
+          objectFit: "cover",
+        }}
+      />
+
+      <div style={{ marginTop: "20px" }}>
+        <button onClick={prevImage}>Previous</button>
+        <button onClick={nextImage} style={{ marginLeft: "20px" }}>
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default ImageCarousel;
+```
 
 ## OUTPUT
+<img width="1536" height="1024" alt="carousal" src="https://github.com/user-attachments/assets/7dcca936-0e83-47a6-b7c4-c04a87057408" />
 
 
 ## RESULT
